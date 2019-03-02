@@ -1,5 +1,5 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import '../components/login-form'
+import '../components/registro-form';
 
 /**
  * `p3-component`
@@ -9,7 +9,7 @@ import '../components/login-form'
  * @polymer
  * @demo demo/index.html
  */
-class LoginPage extends PolymerElement {
+class RegistroPage extends PolymerElement {
     static get template() {
         return html`
       <style>
@@ -17,17 +17,18 @@ class LoginPage extends PolymerElement {
           display: block;
         }
       </style>
-      <login-form></login-form>
+      <registro-form></registro-form>
+      
     `;
     }
     static get properties() {
         return {
             prop1: {
                 type: String,
-                value: 'login page',
+                value: 'registro page',
             },
         };
     }
 }
 
-window.customElements.define('login-page', LoginPage);
+window.customElements.define('registro-page', RegistroPage);

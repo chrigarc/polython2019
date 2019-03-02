@@ -1,5 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import '../components/login-form'
+import '../components/search-component';
+import '../components/resources-list'
 
 /**
  * `p3-component`
@@ -9,7 +10,7 @@ import '../components/login-form'
  * @polymer
  * @demo demo/index.html
  */
-class LoginPage extends PolymerElement {
+class SearcherPage extends PolymerElement {
     static get template() {
         return html`
       <style>
@@ -17,17 +18,18 @@ class LoginPage extends PolymerElement {
           display: block;
         }
       </style>
-      <login-form></login-form>
+      <search-component></search-component>
+      <resources-list></resources-list>
     `;
     }
     static get properties() {
         return {
             prop1: {
                 type: String,
-                value: 'login page',
+                value: 'searcher page',
             },
         };
     }
 }
 
-window.customElements.define('login-page', LoginPage);
+window.customElements.define('searcher-page', SearcherPage);
