@@ -4,6 +4,8 @@ import '@polymer/app-route/app-location';
 import '@polymer/iron-pages/iron-pages';
 import '../pages/landing-page';
 import '../pages/login-page';
+import '../pages/registro-page';
+import '../pages/dashboard-page';
 /**
  * @customElement
  * @polymer
@@ -28,6 +30,8 @@ class Polython2019App extends PolymerElement {
                 role="main">
             <landing-page view="landing"></landing-page>
             <login-page view="login"></login-page>
+            <registro-page view="registro"></registro-page>
+            <dashboard-page view="dashboard"></dashboard-page>
         </iron-pages>
 
     `;
