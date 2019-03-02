@@ -1,5 +1,5 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import '../components/registro-form';
+import '../components/upload-form';
 
 /**
  * `p3-component`
@@ -9,7 +9,7 @@ import '../components/registro-form';
  * @polymer
  * @demo demo/index.html
  */
-class RegistroPage extends PolymerElement {
+class UploadPage extends PolymerElement {
     static get template() {
         return html`
       <style>
@@ -17,7 +17,7 @@ class RegistroPage extends PolymerElement {
           display: block;
         }
       </style>
-      <registro-form></registro-form>
+      <upload-form></upload-form>
       
     `;
     }
@@ -25,10 +25,10 @@ class RegistroPage extends PolymerElement {
         return {
             prop1: {
                 type: String,
-                value: 'registro page',
+                value: 'upload page',
             },
         };
     }
 }
 
-window.customElements.define('registro-page', RegistroPage);
+window.customElements.define('upload-page', UploadPage);

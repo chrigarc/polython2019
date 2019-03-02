@@ -9,6 +9,7 @@ import '../pages/registro-page';
 import '../pages/dashboard-page';
 import '../pages/content-page';
 import '../pages/searcher-page';
+import '../pages/upload-page';
 
 //components
 import '../components/header-component';
@@ -42,6 +43,7 @@ class Polython2019App extends PolymerElement {
           <registro-page view="registro"></registro-page>
           <dashboard-page view="dashboard"></dashboard-page>
           <content-page view="content"></content-page>
+          <upload-page view="upload"></upload-page>
           <searcher-page view="searcher"></searcher-page>
       </iron-pages>
         
