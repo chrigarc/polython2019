@@ -1,4 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import '../components/content-component';
+import '../components/content-edit-component';
 
 /**
  * `p3-component`
@@ -16,7 +18,8 @@ class ContentPage extends PolymerElement {
           display: block;
         }
       </style>
-      <h2>Hello [[prop1]]!</h2>
+      <content-component></content-component>
+      <content-edit-component></content-edit-component>
     `;
     }
     static get properties() {

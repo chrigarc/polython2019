@@ -1,4 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import '../components/search-component';
+import '../components/resources-list'
 
 /**
  * `p3-component`
@@ -16,7 +18,8 @@ class SearcherPage extends PolymerElement {
           display: block;
         }
       </style>
-      <h2>Hello [[prop1]]!</h2>
+      <search-component></search-component>
+      <resources-list></resources-list>
     `;
     }
     static get properties() {
