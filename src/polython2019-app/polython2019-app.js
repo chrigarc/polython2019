@@ -33,7 +33,7 @@ class Polython2019App extends PolymerElement {
       <app-route route="{{route}}"
                    pattern="/:page"
                    data="{{data}}"></app-route>
-      <header-component></header-component>
+      <header-component logged="[[logged]]"></header-component>
       <iron-pages
               selected="{{data.page}}"
               attr-for-selected="view"
@@ -56,9 +56,26 @@ class Polython2019App extends PolymerElement {
       prop1: {
         type: String,
         value: 'polython2019-app'
+      },
+      logged: {
+        type: Boolean,
+        value: false
       }
     };
   }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.__oAuthMiddelware();
+  }
+
+  __oAuthMiddelware() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.set('logged', user ? true : false);
+    });
+  }
+
+
 }
 
 window.customElements.define('polython2019-app', Polython2019App);

@@ -69,19 +69,35 @@ class HeaderComponent extends PolymerElement {
          <a href="landing" class="logo">Repositorio estudiantil</a>
          <nav class="header-right">
             <a class="active" href="landing">Inicio</a>
-            <a href="login">Login</a>
-            <a href="registro">Registro</a>
+            <template is="dom-if" if="[[!logged]]">
+                <a href="login">Login</a>
+                <a href="registro">Registro</a>
+            </template>            
+            <template is="dom-if" if="[[logged]]">
+                <a href="#" on-click="__handleCloseSession">Cerrar sesión</a>               
+            </template>            
         </nav>
       </header>
     `;
     }
     static get properties() {
         return {
-            prop1: {
-                type: String,
-                value: 'login page',
+            user: {
+                type: Object
             },
+            logged: {
+                type: Boolean,
+                value: false
+            }
         };
+    }
+
+    __handleCloseSession(event){
+        firebase.auth().signOut().then(() => {
+            // Sign-out successful.
+        }).catch((error) => {
+            // An error happened.
+        });
     }
 }
 

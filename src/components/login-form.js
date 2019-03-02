@@ -16,39 +16,43 @@ class LoginForm extends PolymerElement {
           display: block;
         }
       </style>
-      <form class="modal-content animate" action="/action_page.php">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="img_avatar2.png" alt="Avatar" class="avatar">
-    </div>
 
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input id="inputemail" type="text" placeholder="Enter Username" name="uname" value="[[username]]" required>
+    
+          <label for="psw"><b>Password</b></label>
+          <input id="inputpassword" type="password" placeholder="Enter Password" name="psw" value="[[password]]" required>
+            
+          <button type="button" on-click="_handleLogin">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+    
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+ 
     `;
     }
     static get properties() {
         return {
-            prop1: {
-                type: String,
-                value: 'login page',
-            },
-        };
+
+        }
+    }
+
+    _handleLogin(event){
+        const email = this.shadowRoot.querySelector('#inputemail').value;
+        const password = this.shadowRoot.querySelector('#inputpassword').value;
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+            console.log(error);
+        });
     }
 }
 

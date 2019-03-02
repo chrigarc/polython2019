@@ -15,44 +15,67 @@ class RegistroForm extends PolymerElement {
         :host {
           display: block;
         }
-      </style>
-      <form class="modal-content animate" action="/action_page.php">
-    <!-- <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="img_avatar2.png" alt="Avatar" class="avatar">
-    </div>
-    -->
-
-    <div class="container">
-      <label for="name"><b>Name</b></label>
-      <input type="text" placeholder="Enter Name" name="name" required>
+      </style>     
     
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+        <div class="container">
+          <label for="name"><b>Name</b></label>
+          <input id="field_name" type="text" placeholder="Enter Name" name="name" value="[[name]]" required>
         
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
+          <label for="uname"><b>Username</b></label>
+          <input id="field_username" type="email" placeholder="Enter Username" name="uname" value="[[username]]" required>
+    
+          <label for="psw"><b>Password</b></label>
+          <input id="field_password" type="password" placeholder="Enter Password" name="psw" value="[[password]]" required>
+            
+          <button type="button" on-click="_handleRegister">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+    
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+  
     `;
     }
     static get properties() {
         return {
-            prop1: {
-                type: String,
-                value: 'registro page',
+            name: {
+                type: String
             },
+            username: {
+                type: String
+            },
+            password: {
+                type: String
+            }
         };
+    }
+
+    _handleRegister(event){
+        const name = this.shadowRoot.querySelector('#field_name').value;
+        const email = this.shadowRoot.querySelector('#field_username').value;
+        const password = this.shadowRoot.querySelector('#field_password').value;
+
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((result) => {
+                console.log('success');
+                console.log(result);
+                firebase.database().ref('users/' + result.user.uid).set({
+                    username: name,
+                    email: email,
+                    rol: 'student'
+                });
+            })
+            .catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+        })
     }
 }
 

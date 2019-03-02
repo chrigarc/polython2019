@@ -13,6 +13,20 @@
     <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
     <script type="module" src="/src/polython2019-app/polython2019-app.js" crossorigin></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script defer>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDXFZXnl5Ua9WTXkJi-AwJs7300jAS6Nwo",
+        authDomain: "polython2019.firebaseapp.com",
+        databaseURL: "https://polython2019.firebaseio.com",
+        projectId: "polython2019",
+        storageBucket: "polython2019.appspot.com",
+        messagingSenderId: "1039760805858"
+      };
+      firebase.initializeApp(config);
+    </script>
   </head>
   <body>
     <polython2019-app></polython2019-app>
