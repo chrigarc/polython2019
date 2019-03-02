@@ -1,5 +1,4 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import '../components/login-form'
 
 /**
  * `p3-component`
@@ -9,7 +8,7 @@ import '../components/login-form'
  * @polymer
  * @demo demo/index.html
  */
-class LoginPage extends PolymerElement {
+class SearchComponent extends PolymerElement {
     static get template() {
         return html`
       <style>
@@ -17,7 +16,7 @@ class LoginPage extends PolymerElement {
           display: block;
         }
       </style>
-      <login-form></login-form>
+      <h2>Hello [[prop1]]!</h2>
     `;
     }
     static get properties() {
@@ -30,4 +29,4 @@ class LoginPage extends PolymerElement {
     }
 }
 
-window.customElements.define('login-page', LoginPage);
+window.customElements.define('search-component', SearchComponent);
