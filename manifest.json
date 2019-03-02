@@ -1,7 +1,6 @@
 {
   "name": "polython2019",
   "short_name": "polython2019",
-  "description": "Repositorio estudiantil",
   "start_url": "/",
   "display": "standalone"
 }
