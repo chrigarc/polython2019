@@ -29,7 +29,7 @@ class Polython2019App extends PolymerElement {
         }
       </style>
       
-      <app-location route="{{route}}"></app-location>
+      <app-location route="{{route}}" use-hash-as-path></app-location>
       <app-route route="{{route}}"
                    pattern="/:page"
                    data="{{data}}"

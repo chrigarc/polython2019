@@ -68,10 +68,10 @@ class HeaderComponent extends PolymerElement {
       <header>
          <a href="landing" class="logo">Repositorio estudiantil</a>
          <nav class="header-right">
-            <a class="active" href="landing">Inicio</a>
+            <a class="active" href="/#/landing">Inicio</a>
             <template is="dom-if" if="[[!logged]]">
-                <a href="login">Login</a>
-                <a href="registro">Registro</a>
+                <a href="/#/login">Login</a>
+                <a href="/#/registro">Registro</a>
             </template>            
             <template is="dom-if" if="[[logged]]">
                 <a href="#" on-click="__handleCloseSession">Cerrar sesión</a>               
