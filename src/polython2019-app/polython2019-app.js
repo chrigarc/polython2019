@@ -115,16 +115,24 @@ class Polython2019App extends PolymerElement {
                 on-notification="handleNotification"             
                 on-contentselected="handleContent">
             <landing-page view="landing"></landing-page>
-            <login-page view="login"></login-page>
-            <registro-page view="registro"></registro-page>
-            <dashboard-page view="dashboard"></dashboard-page>
-            <content-page view="content" content="[[content]]"></content-page>
-            <upload-page view="upload" user="[[user]]"></upload-page>
-            <searcher-page view="searcher" user="[[user]]"></searcher-page>
+            
+            <template is="dom-if" if="[[!user]]">
+              <login-page view="login"></login-page>
+              <registro-page view="registro"></registro-page>
+            </template>
+            
+            <template is="dom-if" if="[[user]]">
+              <dashboard-page view="dashboard"></dashboard-page>            
+              <content-page view="content" content="[[content]]"></content-page>
+              <upload-page view="upload" user="[[user]]"></upload-page>
+              <searcher-page view="searcher" user="[[user]]"></searcher-page>
+              <news-upload view="news-upload" ></news-upload>
+            </template>
+                        
             <about-page view="about"></about-page>
             <contact-page view="contact"></contact-page>
             <news-page view="news" user="[[user]]"></news-page>
-            <news-upload view="news-upload" ></news-upload>
+            
         </iron-pages>
       </section>
       

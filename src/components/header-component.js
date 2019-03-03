@@ -152,6 +152,10 @@ class HeaderComponent extends PolymerElement {
                 composed: true,
                 detail: {text: 'Adiós vaquero'}
             }));
+            const link=document.createElement("a");
+            link.id = 'someLink'; //give it an ID!
+            link.href="/#/landing";
+            link.click();
         }).catch((error) => {
             // An error happened.
         });

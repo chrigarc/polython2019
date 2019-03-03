@@ -57,12 +57,12 @@ class SearcherPage extends PolymerElement {
             </header>
             <img src="http://placekitten.com/800/250" alt="Gatito" />
             <div class="content" style="overflow: auto;">                
-                <search-component categories="[[categorias]]"></search-component>
+                <search-component categories="[[categorias]]" on-searching="_handleSearch"></search-component>
             </div>
             
             <div class="content" style="overflow: auto;">
             <a class="button" href="/#/upload">Nuevo</a>
-                <resources-list categories="[[categorias]]" user="[[user]]"></resources-list>
+                <resources-list id="lista" categories="[[categorias]]" user="[[user]]" filters="[[filters]]"></resources-list>
             </div>            
         </article>
       
@@ -82,6 +82,10 @@ class SearcherPage extends PolymerElement {
                 type: Array,
                 value: [],
             },
+            filters: {
+                type: Object,
+                value: {}
+            }
         };
     }
 
@@ -99,6 +103,10 @@ class SearcherPage extends PolymerElement {
             this.set("categorias",cat);
         });
 
+    }
+
+    _handleSearch(event){
+        this.set('filters', event.detail);
     }
 }
 

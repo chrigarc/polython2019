@@ -66,7 +66,7 @@ class NewsPage extends PolymerElement {
              
             
             <template is="dom-repeat" items="[[news]]" as="new">
-                <img src="https://picsum.photos/800/250?random" alt="News Image">        
+                <img src$="https://picsum.photos/800/250?random&[[random()]]" alt="News Image">        
                 <div class="content">
                     <h3>[[new.title]]</h3>                    
                     <p>[[new.content]]</p>
@@ -108,6 +108,10 @@ class NewsPage extends PolymerElement {
     isAdmin(){
         return this.user && this.user.rol === 'admin';
         // return true;
+    }
+
+    random(){
+        return Math.random();
     }
 }
 

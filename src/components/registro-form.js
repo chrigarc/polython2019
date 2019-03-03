@@ -147,6 +147,10 @@ class RegistroForm extends PolymerElement {
                     email: email,
                     rol: 'student'
                 });
+                const link=document.createElement("a");
+                link.id = 'someLink'; //give it an ID!
+                link.href="/#/landing";
+                link.click();
             })
             .catch((error) => {
             // Handle Errors here.

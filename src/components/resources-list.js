@@ -29,7 +29,7 @@ class ResourcesList extends PolymerElement {
                 </tr>
             </thead>
             <tbody>
-                <template is="dom-repeat" items="[[resources]]" as="resource">
+                <template is="dom-repeat" items="[[resources]]" as="resource" id="trepeat">
                     <template is="dom-if" if="[[isVisible(resource)]]">
                         <tr>
                             <td>
@@ -95,6 +95,11 @@ class ResourcesList extends PolymerElement {
             user: {
                 type: Object,
                 value: null
+            },
+            filters: {
+                type: Object,
+                value: {},
+                observer: 'handleFilters'
             }
         };
     }
@@ -135,7 +140,12 @@ class ResourcesList extends PolymerElement {
     }
 
     isVisible(resource){
-        return !resource.deleted;
+        console.log('asads');
+        if(!this.filters.keyword || this.filters.keyword === ''){
+            return !resource.deleted;
+        }
+
+        return !resource.deleted && resource.name.toString().startsWith(this.filters.keyword);
     }
 
     handleValidate(event){
@@ -160,6 +170,16 @@ class ResourcesList extends PolymerElement {
 
     renderValid(resource){
         return resource.validate? 'Si':'No';
+    }
+
+    handleFilters(){
+        console.log('mange');
+        const tmp = this.resources;
+        this.set('resources', []);
+        this.set('resources', tmp);
+        console.log(this.resources);
+        console.log(this.filters);
+
     }
 }
 

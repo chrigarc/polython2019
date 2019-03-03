@@ -17,8 +17,7 @@ class SearchComponent extends PolymerElement {
         }
         
         .topnav {
-          overflow: hidden;
-          background-color: #e9e9e9;
+          
         }
         
         .topnav a {
@@ -49,6 +48,24 @@ class SearchComponent extends PolymerElement {
           font-size: 17px;
         }
         
+        input[type=text]{
+            margin-left: 10px;
+           }
+           
+          input[type=text], select {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        
+         .topnav input[type=text] {
+            border: 1px solid #ccc;  
+          }
+        
         @media screen and (max-width: 600px) {
           .topnav a, .topnav input[type=text] {
             float: none;
@@ -59,15 +76,17 @@ class SearchComponent extends PolymerElement {
             padding: 14px;
           }
           
-          .topnav input[type=text] {
-            border: 1px solid #ccc;  
-          }
+         
+          
+           input[type=text]{
+            margin-left: 0;
+           }
         }
         
       </style>
-      <div class="topnav">
-        <input type="text" placeholder="Search..">
-        <select id="inputcategoria">
+      <div class="topnav" style="padding-bottom: 8px;">
+        <input id="inputfilter" type="text" placeholder="Search.."  on-keyup="_filter">
+        <select id="inputcategoria" on-change="_filter">
            <template is="dom-repeat" items="[[categories]]" as="categoria">
             <option value="[[categoria.id]]">[[categoria.name]]</option>
            </template>
@@ -86,6 +105,18 @@ class SearchComponent extends PolymerElement {
                 value: []
             }
         };
+    }
+
+    _filter(){
+        console.log('buscando');
+        const keyword = this.$.inputfilter.value;
+        const category = this.$.inputcategoria.value;
+        // console.log(keyword + '  -   ' + category);
+        this.dispatchEvent(new CustomEvent('searching', {
+            bubbles: true,
+            composed: true,
+            detail: {keyword, category}
+        }));
     }
 }
 
