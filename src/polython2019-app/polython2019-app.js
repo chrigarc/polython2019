@@ -11,6 +11,9 @@ import '../pages/dashboard-page';
 import '../pages/content-page';
 import '../pages/searcher-page';
 import '../pages/upload-page';
+import '../pages/about-page';
+import '../pages/contact-page';
+import '../pages/news-page';
 
 //components
 import '../components/header-component';
@@ -101,6 +104,7 @@ class Polython2019App extends PolymerElement {
             <content-page view="content" content="[[content]]"></content-page>
             <upload-page view="upload" user="[[user]]"></upload-page>
             <searcher-page view="searcher" user="[[user]]"></searcher-page>
+            <about-page view="about"></about-page>
         </iron-pages>
       </section>
       
