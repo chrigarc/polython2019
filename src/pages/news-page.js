@@ -1,6 +1,4 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import '../components/search-component';
-import '../components/resources-list'
 
 /**
  * `p3-component`
@@ -10,7 +8,7 @@ import '../components/resources-list'
  * @polymer
  * @demo demo/index.html
  */
-class SearcherPage extends PolymerElement {
+class NewsPage extends PolymerElement {
     static get template() {
         return html`
       <style>
@@ -18,11 +16,11 @@ class SearcherPage extends PolymerElement {
           display: block;
         }
         
-              header, .content {
+        header, .content {
 		    padding: 40px;
 	    }
 	    
-	     .button {
+	       .button {
           width: 100%;
           padding: 12px 20px;
           margin: 8px 0;
@@ -42,8 +40,12 @@ class SearcherPage extends PolymerElement {
           border-radius: 4px;
           cursor: pointer;
         }
+	    
+	    .button {
+          background-color: #4CAF50;
+        }
         
-        .button {
+        .button:hover {
           background-color: #45a049;
         }
         
@@ -51,37 +53,38 @@ class SearcherPage extends PolymerElement {
             width: 100%;
         }
       </style>
-        <article>
+              
+       <article>
             <header>
-                <h2>Biblioteca</h2>
+                <h2>Noticias</h2>
             </header>
-            <img src="http://placekitten.com/800/250" alt="Gatito" />
-            <div class="content" style="overflow: auto;">                
-                <search-component categories="[[categorias]]"></search-component>
-            </div>
+            <template is="dom-if" if="[[user]]">
+                <template is="dom-if" if="[[isAdmin]]">
+                    <a class="button" href="/#/news-upload">Nuevo</a>
+                </template>
+            </template>
+             
             
-            <div class="content" style="overflow: auto;">
-            <a class="button" href="/#/upload">Nuevo</a>
-                <resources-list categories="[[categorias]]" user="[[user]]"></resources-list>
-            </div>            
+            <template is="dom-repeat" items="[[news]]" as="new">
+                <img src="https://picsum.photos/800/250?random" alt="News Image">        
+                <div class="content">
+                    <h3>[[new.title]]</h3>                    
+                    <p>[[new.content]]</p>
+                </div>
+            </template>
         </article>
-      
     `;
     }
     static get properties() {
         return {
-            prop1: {
-                type: String,
-                value: 'searcher page',
+            news: {
+                type: Object,
+                value: [{title:'dummy', content:'random'}]
             },
             user: {
                 type: Object,
                 value: null
-            },
-            categorias:{
-                type: Array,
-                value: [],
-            },
+            }
         };
     }
 
@@ -89,17 +92,23 @@ class SearcherPage extends PolymerElement {
         super.connectedCallback();
         this.handleStart();
     }
+
     handleStart(){
-        const references=firebase.database().ref('categories');
+        const references=firebase.database().ref('news');
         references.on('value', (snapshot)=>{
             const cat=[];
             for(const v in snapshot.val()){
                 cat.push(snapshot.val()[v]);
             }
-            this.set("categorias",cat);
+            this.set("news",cat);
         });
 
     }
+
+    isAdmin(){
+        return this.user && this.user.rol === 'admin';
+        // return true;
+    }
 }
 
-window.customElements.define('searcher-page', SearcherPage);
+window.customElements.define('news-page', NewsPage);

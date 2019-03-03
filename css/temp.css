@@ -1,0 +1,39 @@
+/************
+//------------------------------
+// CONTENIDO
+//------------------------------
+************/
+#main-content {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+#main-content header,
+#main-content .content {
+    padding: 40px;
+}
+
+
+
+/************
+//-----------------------------
+// PIE PÁGINA
+//-----------------------------
+************/
+#main-footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+#main-footer p {
+    margin: 0;
+}
+
+#main-footer a {
+    color: white;
+}
