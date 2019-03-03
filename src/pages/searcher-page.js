@@ -17,9 +17,25 @@ class SearcherPage extends PolymerElement {
         :host {
           display: block;
         }
+        
+              header, .content {
+		    padding: 40px;
+	    }
       </style>
-      <search-component categories="[[categorias]]"></search-component>
-      <resources-list categories="[[categorias]]" user="[[user]]"></resources-list>
+        <article>
+            <header>
+                <h2>Biblioteca</h2>
+            </header>
+            <img src="http://placekitten.com/800/250" alt="Gatito" />
+            <div class="content">
+                <search-component categories="[[categorias]]"></search-component>
+            </div>
+            
+            <div class="content">
+                <resources-list categories="[[categorias]]" user="[[user]]"></resources-list>
+            </div>            
+        </article>
+      
     `;
     }
     static get properties() {

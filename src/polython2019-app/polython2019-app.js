@@ -26,7 +26,57 @@ class Polython2019App extends PolymerElement {
       <style>
         :host {
           display: block;
+          margin: 0;
+          padding: 0;
+          font-family: Helvetica, Arial, sans-serif;
+          color: #666;
+          background: #f2f2f2; 
+          font-size: 1em;
+          line-height: 1.5em;
+          
+          padding-top: 80px;
+        }                     
+        
+        /************ 
+        //------------------------------
+        // CONTENIDO
+        //------------------------------
+        ************/
+        #main-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,.1);
         }
+        
+        #main-content header,
+        #main-content .content {
+            padding: 40px;
+        }
+        
+        
+        
+        /************
+        //-----------------------------
+        // PIE PÁGINA
+        //-----------------------------
+        ************/
+        #main-footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        #main-footer p {
+            margin: 0;
+        }
+        
+        #main-footer a {
+            color: white;
+        }
+
       </style>
       
       <app-location route="{{route}}" use-hash-as-path></app-location>
@@ -35,22 +85,29 @@ class Polython2019App extends PolymerElement {
                    data="{{data}}"
                    tail="{{subroute}}"></app-route>
       <header-component logged="[[logged]]" on-notification="handleNotification" user="[[user]]"></header-component>
-      <iron-pages
-              selected="{{data.page}}"
-              attr-for-selected="view"
-              fallback-selection="landing"
-              role="main" 
-              on-notification="handleNotification"             
-              on-contentselected="handleContent">
-          <landing-page view="landing"></landing-page>
-          <login-page view="login"></login-page>
-          <registro-page view="registro"></registro-page>
-          <dashboard-page view="dashboard"></dashboard-page>
-          <content-page view="content" content="[[content]]"></content-page>
-          <upload-page view="upload" user="[[user]]"></upload-page>
-          <searcher-page view="searcher" user="[[user]]"></searcher-page>
-      </iron-pages>
-        
+      
+      <section id="main-content">
+        <iron-pages
+                selected="{{data.page}}"
+                attr-for-selected="view"
+                fallback-selection="landing"
+                role="main" 
+                on-notification="handleNotification"             
+                on-contentselected="handleContent">
+            <landing-page view="landing"></landing-page>
+            <login-page view="login"></login-page>
+            <registro-page view="registro"></registro-page>
+            <dashboard-page view="dashboard"></dashboard-page>
+            <content-page view="content" content="[[content]]"></content-page>
+            <upload-page view="upload" user="[[user]]"></upload-page>
+            <searcher-page view="searcher" user="[[user]]"></searcher-page>
+        </iron-pages>
+      </section>
+      
+      <footer id="main-footer">
+	    <p>&copy; 2019 CHIMaeRA</p>
+      </footer><!-- / #main-footer -->
+      
       <paper-toast id="toast" text="[[notification.text]]" opened></paper-toast>  
     `;
   }

@@ -18,11 +18,28 @@ class ContentPage extends PolymerElement {
         :host {
           display: block;
         }
+        
+            header, .content {
+		    padding: 40px;
+	    }
       </style>
+      
+       <article>
+            <header>
+                <h2>[[content.name]]</h2>
+            </header>
+            <img src="http://placekitten.com/800/250" alt="Gatito" />
+            <div class="content">
+                <content-component content="[[content]]"></content-component>      
+            </div>
+            <div class="content">
+                <a href="/#/searcher">Regresar</a>
+            </div>
+        </article>
             
-      <content-component content="[[content]]"></content-component>
+      
       <!--<content-edit-component></content-edit-component>-->
-      <a href="searcher">Regresar</a>
+      
     `;
     }
     static get properties() {

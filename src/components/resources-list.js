@@ -18,27 +18,69 @@ class ResourcesList extends PolymerElement {
       </style>
       
       <template is="dom-if" if="[[user]]">
-        <section>
-            <ul>
-                 <template is="dom-repeat" items="[[resources]]" as="resource">
+          <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <td>Titulo</td>
+                    <td>Categoría</td>
+                    <td>Valoraciones</td>                   
+                    <td>Valido</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="[[resources]]" as="resource">
                     <template is="dom-if" if="[[isVisible(resource)]]">
-                        <li><a href$="content?[[resource.id]]" on-click="handleContentSelect"  content-id$="[[resource.id]]" >[[resource.name]]</a> 
-                            <template is="dom-if" if="[[isAdmin()]]">
-                                <a href="#" on-click="handleDelete" content-id$="[[resource.id]]" >Borrar</a>
+                        <tr>
+                            <td>
+                                <a href="/#/content" on-click="handleContentSelect"  content-id$="[[resource.id]]" >[[resource.name]]</a> 
+                            </td>
+                            <td>
+                                [[resource.name]]
+                            </td>
+                            <td>
+                            [[resource.rate]]
+                            </td>
+                            <td>
+                            [[renderValid(resource)]]
+                            </td>
+                            <td>
+                                <template is="dom-if" if="[[isAdmin()]]">
+                                    <a href="#" on-click="handleDelete" content-id$="[[resource.id]]" >Borrar</a>
+                                
+                                    <a href="#" on-click="handleValidate" content-id$="[[resource.id]]" >Validar</a>
+                                </template>                        
+                                <template is="dom-if" if="[[isStudent()]]">
+                                    <a href="#" on-click="handleRate" content-id$="[[resource.id]]" content-rate$="[[resource.rate]]">Me gusta</a>
+                                </template>                                                  
                             
-                                <a href="#" on-click="handleValidate" content-id$="[[resource.id]]" >Validar</a>
-                            </template>                        
-                            <template is="dom-if" if="[[isStudent()]]">
-                                <a href="#" on-click="handleRate" content-id$="[[resource.id]]" content-rate$="[[resource.rate]]">Me gusta</a>
-                            </template>                       
-                            <span><strong>Valoraciones: </strong>[[resource.rate]]</span>
-                            <span><strong>Valido: </strong>[[renderValid(resource)]]</span>
-                            
-                        </li>
+                            </td>                                                     
+                        </tr>
                     </template>            
                 </template>
-            </ul>
-          </section>
+            </tbody>
+          </table>
+        <!--<section>        -->
+            <!--<ul>-->
+                 <!--<template is="dom-repeat" items="[[resources]]" as="resource">-->
+                    <!--<template is="dom-if" if="[[isVisible(resource)]]">-->
+                        <!--<li><a href="/#/content" on-click="handleContentSelect"  content-id$="[[resource.id]]" >[[resource.name]]</a> -->
+                            <!--<template is="dom-if" if="[[isAdmin()]]">-->
+                                <!--<a href="#" on-click="handleDelete" content-id$="[[resource.id]]" >Borrar</a>-->
+                            <!---->
+                                <!--<a href="#" on-click="handleValidate" content-id$="[[resource.id]]" >Validar</a>-->
+                            <!--</template>                        -->
+                            <!--<template is="dom-if" if="[[isStudent()]]">-->
+                                <!--<a href="#" on-click="handleRate" content-id$="[[resource.id]]" content-rate$="[[resource.rate]]">Me gusta</a>-->
+                            <!--</template>                       -->
+                            <!--<span><strong>Valoraciones: </strong>[[resource.rate]]</span>-->
+                            <!--<span><strong>Valido: </strong>[[renderValid(resource)]]</span>-->
+                            <!---->
+                        <!--</li>-->
+                    <!--</template>            -->
+                <!--</template>-->
+            <!--</ul>-->
+          <!--</section>-->
       </template>
       
     `;

@@ -16,71 +16,117 @@ class HeaderComponent extends PolymerElement {
           display: block;
         }
         
-        .header {
-          overflow: hidden;
-          background-color: #f1f1f1;
-          padding: 20px 10px;
+                /************
+        //-------------------------------
+        // CABECERA
+        //-------------------------------
+        ************/
+        #main-header {
+            background: #333;
+            color: white;
+            height: 80px;
+        
+            width: 100%;
+            left: 0;
+            top: 0;
+            position: fixed;
+        }
+        #main-header a {
+            color: white;
         }
         
-        .header a {
-          float: left;
-          color: black;
-          text-align: center;
-          padding: 12px;
-          text-decoration: none;
-          font-size: 18px; 
-          line-height: 25px;
-          border-radius: 4px;
+        
+        /*
+         * Logo
+         */
+        #logo-header {
+            float: left;
+            padding: 15px 0 0 20px;
+            text-decoration: none;
+        }
+        #logo-header:hover {
+            color: #0b76a6;
         }
         
-        .header a.logo {
-          font-size: 25px;
-          font-weight: bold;
-        }
-        
-        .header a:hover {
-          background-color: #ddd;
-          color: black;
-        }
-        
-        .header a.active {
-          background-color: dodgerblue;
-          color: white;
-        }
-        
-        .header-right {
-          float: right;
-        }
-        
-        @media screen and (max-width: 500px) {
-          .header a {
-            float: none;
+        #logo-header .site-name {
             display: block;
-            text-align: left;
-          }
-          
-          .header-right {
-            float: none;
-          }
+            font-weight: 700;
+            font-size: 1.2em;
         }
+        
+        #logo-header .site-desc {
+            display: block;
+            font-weight: 300;
+            font-size: 0.8em;
+            color: #999;
+        }
+        
+        
+        /*
+         * Navegación
+         */
+        nav {
+            float: right;
+        }
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            padding-right: 20px;
+        }
+        
+        nav ul li {
+            display: inline-block;
+            line-height: 80px;
+        }
+        
+        nav ul li a {
+            display: block;
+            padding: 0 10px;
+            text-decoration: none;
+        }
+        
+        nav ul li a:hover {
+            background: #0b76a6;
+        }
+        
+
+        
+        
       </style>
       
-      <header>
-         <a href="landing" class="logo">Repositorio estudiantil</a>
-         <nav class="header-right">
-            <a class="active" href="/#/landing">Inicio</a>
-            <template is="dom-if" if="[[!logged]]">
-                <a href="/#/login">Login</a>
-                <a href="/#/registro">Registro</a>
-            </template>            
-            <template is="dom-if" if="[[logged]]">
-                <a href="#" on-click="__handleCloseSession">Cerrar sesión</a>               
-                <span>[[user.name]]</span>
-            </template>            
-        </nav>
-      </header>
+      
+      
+      <header id="main-header">
+            
+            <a id="logo-header" href="#">
+                <span class="site-name">CHIMaeRA</span>
+                <span class="site-desc">APRENDER Y PRODUCIR COMO NUNCA</span>
+            </a> <!-- / #logo-header -->
+        
+            <nav>
+                <ul>
+                    <li><a class="active" href="/#/landing">Inicio</a></li>
+                    <li><a href="/#/about">Acerca de</a></li>
+                    <template is="dom-if" if="[[!logged]]">
+                        <li><a href="/#/login">Login</a></li>
+                        <li><a href="/#/registro">Registro</a></li>
+                    </template>            
+                    <template is="dom-if" if="[[logged]]">
+                        <li><a href="/#/searcher">Biblioteca</a></li>                               
+                        <li><a href="#" on-click="__handleCloseSession">Cerrar sesión</a></li>                               
+                    </template>      
+                    <li><a href="/#/contact">Contacto</a></li>			
+                </ul>	
+            </nav><!-- / nav -->
+        
+        </header><!-- / #main-header -->
+
+
+   
     `;
     }
+
     static get properties() {
         return {
             user: {
@@ -93,7 +139,7 @@ class HeaderComponent extends PolymerElement {
         };
     }
 
-    __handleCloseSession(event){
+    __handleCloseSession(event) {
         firebase.auth().signOut().then(() => {
             // Sign-out successful.
             this.dispatchEvent(new CustomEvent('notification', {
