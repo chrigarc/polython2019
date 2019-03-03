@@ -44,6 +44,10 @@ class UploadForm extends PolymerElement {
             categorias:{
                 type: Array,
                 value: [],
+            },
+            user: {
+                type: Object,
+                value: null
             }
         };
         
@@ -78,7 +82,8 @@ class UploadForm extends PolymerElement {
             views:0,
             rate:0,
             validate:false,
-            autor:"",
+            autor: user.uid,
+            id: newResurceKey
         };
         const updates={};
         updates['/resources/' + newResurceKey] = resourceData;

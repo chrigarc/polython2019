@@ -17,27 +17,17 @@ class ContentComponent extends PolymerElement {
           display: block;
         }
       </style>
-       <marked-element>
-      <div slot="markdown-html"></div>
-      <script type="text/markdown">
-        # tiTULO
-        ## SUBTITULO
-        Check out my markdown!
- 
-        We can even embed elements without fear of the HTML parser mucking up their
-        textual representation:
- 
-        \`\`\`html
-        <awesome-sauce>
-          <div>Oops, I'm about to forget to close this div.
-        </awesome-sauce>
-        \`\`\`
-      </script> 
-    </marked-element>
+      <marked-element markdown="[[content.content]]">
+        <div slot="markdown-html"></div>     
+      </marked-element>
     `;
     }
     static get properties() {
         return {
+            content: {
+                type: Object,
+                value: {content:'Cargando...'}
+            }
         };
     }
 }
