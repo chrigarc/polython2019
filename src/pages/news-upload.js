@@ -128,7 +128,7 @@ class NewsUpload extends PolymerElement {
         };
         const updates={};
         updates['/news/' + newResurceKey] = resourceData;
-        updates['/notifications'] =  'Nuevo noticia disponible';
+        updates['/notifications'] =  Date.now() + ': Nuevo noticia disponible';
         firebase.database().ref().update(updates).then(()=>{
             console.log("guarde bien");
             this.dispatchEvent(new CustomEvent('notification', {

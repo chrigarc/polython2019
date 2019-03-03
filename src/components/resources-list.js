@@ -36,7 +36,7 @@ class ResourcesList extends PolymerElement {
                                 <a href="/#/content" on-click="handleContentSelect"  content-id$="[[resource.id]]" >[[resource.name]]</a> 
                             </td>
                             <td>
-                                [[resource.name]]
+                                [[resource.category]]
                             </td>
                             <td>
                             [[resource.rate]]

@@ -157,7 +157,7 @@ class UploadForm extends PolymerElement {
         const updates={};
         updates['/resources/' + newResurceKey] = resourceData;
         updates['/user-resources/' +this.user.uid+ '/' +newResurceKey] =resourceData;
-        updates['/notifications'] =  'Nuevo recurso disponible';
+        updates['/notifications'] =  Date.now + ': Nuevo recurso disponible';
         firebase.database().ref().update(updates).then(()=>{
             console.log("guarde bien");
             this.dispatchEvent(new CustomEvent('notification', {
