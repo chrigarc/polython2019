@@ -58,7 +58,11 @@ class Polython2019App extends PolymerElement {
             padding: 40px;
         }
         
-        
+        .userinfo{
+            float: right;    
+            margin-right: 40px;
+            margin-top: 10px;
+        }
         
         /************
         //-----------------------------
@@ -90,6 +94,11 @@ class Polython2019App extends PolymerElement {
       <header-component logged="[[logged]]" on-notification="handleNotification" user="[[user]]"></header-component>
       
       <section id="main-content">
+        <article>
+            <div class="userinfo">
+            [[user.name]] - [[user.rol]]
+            </div>
+        </article>
         <iron-pages
                 selected="{{data.page}}"
                 attr-for-selected="view"
@@ -105,6 +114,8 @@ class Polython2019App extends PolymerElement {
             <upload-page view="upload" user="[[user]]"></upload-page>
             <searcher-page view="searcher" user="[[user]]"></searcher-page>
             <about-page view="about"></about-page>
+            <contact-page view="contact"></contact-page>
+            <news-page view="news"></news-page>
         </iron-pages>
       </section>
       

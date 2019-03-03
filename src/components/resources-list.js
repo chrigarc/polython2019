@@ -139,7 +139,8 @@ class ResourcesList extends PolymerElement {
     }
 
     handleValidate(event){
-
+        const id = event.target.getAttribute('content-id');
+        firebase.database().ref('resources/' + id).child('validate').set(true);
     }
 
     handleRate(event){

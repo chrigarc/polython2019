@@ -28,7 +28,7 @@ class ContentPage extends PolymerElement {
             <header>
                 <h2>[[content.name]]</h2>
             </header>
-            <img src="http://placekitten.com/800/250" alt="Gatito" />
+            <img src="https://picsum.photos/800/250?random" alt="Resource Image" />
             <div class="content">
                 <content-component content="[[content]]"></content-component>      
             </div>

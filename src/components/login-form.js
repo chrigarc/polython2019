@@ -51,7 +51,7 @@ class LoginForm extends PolymerElement {
           cursor: pointer;
         }
         
-        input[type=submit]:hover, button {
+        input[type=submit]:hover, button:hover {
           background-color: #45a049;
         }
       </style>
@@ -61,15 +61,18 @@ class LoginForm extends PolymerElement {
 			<h2>Acceso</h2>
 		</header>
 		<img src="http://placekitten.com/800/250" alt="Gatito" />
-		<div class="content">
-		  <label for="uname"><b>Username</b></label>
-          <input id="inputemail" type="text" placeholder="Enter Username" name="uname" value="[[username]]" required>
-    
-          <label for="psw"><b>Password</b></label>
-          <input id="inputpassword" type="password" placeholder="Enter Password" name="psw" value="[[password]]" required>
-            
-          <button type="button" on-click="_handleLogin">Login</button>         
-		</div>
+		<form on-submit="_handleLogin">
+            <div class="content">
+              <label for="uname"><b>Username</b></label>
+              <input id="inputemail" type="text" placeholder="Enter Username" name="uname" value="[[username]]" required>
+        
+              <label for="psw"><b>Password</b></label>
+              <input id="inputpassword" type="password" placeholder="Enter Password" name="psw" value="[[password]]" required>
+                
+              <button type="submit">Login</button>         
+            </div>		    
+        </form>
+		
     </article>
         <!--<div class="container">-->
           <!--<label for="uname"><b>Username</b></label>-->
@@ -98,8 +101,11 @@ class LoginForm extends PolymerElement {
     }
 
     _handleLogin(event){
+        event.preventDefault();
         const email = this.shadowRoot.querySelector('#inputemail').value;
         const password = this.shadowRoot.querySelector('#inputpassword').value;
+        this.shadowRoot.querySelector('#inputemail').value = '';
+        this.shadowRoot.querySelector('#inputpassword').value = '';
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((response) =>{
                 this.dispatchEvent(new CustomEvent('notification', {
@@ -108,12 +114,17 @@ class LoginForm extends PolymerElement {
                     detail: {text: 'Gracias por iniciar sesión'}
                 }));
             })
-            .catch(function(error) {
+            .catch((error) => {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             // ...
             console.log(error);
+            this.dispatchEvent(new CustomEvent('notification', {
+                bubbles: true,
+                composed: true,
+                detail: {text: 'Datos invalidos'}
+            }));
         });
     }
 }

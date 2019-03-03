@@ -61,7 +61,7 @@ class RegistroForm extends PolymerElement {
           cursor: pointer;
         }
         
-        input[type=submit]:hover, button {
+        input[type=submit]:hover, button:hover {
           background-color: #45a049;
         }
       </style>     
@@ -71,18 +71,21 @@ class RegistroForm extends PolymerElement {
                 <h2>Registro</h2>
             </header>
             <img src="http://placekitten.com/800/250" alt="Gatito" />
-            <div class="content">
-                 <label for="name"><b>Name</b></label>
-              <input id="field_name" type="text" placeholder="Enter Name" name="name" value="[[name]]" required>
-            
-              <label for="uname"><b>Email</b></label>
-              <input id="field_username" type="email" placeholder="Enter a valid email" name="uname" value="[[username]]" required>
-        
-              <label for="psw"><b>Password</b></label>
-              <input id="field_password" type="password" placeholder="Enter Password" name="psw" value="[[password]]" required>
+            <form on-submit="_handleRegister">
+                <div class="content">
+                     <label for="name"><b>Name</b></label>
+                  <input id="field_name" type="text" placeholder="Enter Name" name="name" value="[[name]]" required>
                 
-              <button type="button" on-click="_handleRegister">Login</button>
-            </div>
+                  <label for="uname"><b>Email</b></label>
+                  <input id="field_username" type="email" placeholder="Enter a valid email" name="uname" value="[[username]]" required>
+            
+                  <label for="psw"><b>Password</b></label>
+                  <input id="field_password" type="password" placeholder="Enter Password" name="psw" value="[[password]]" required>
+                    
+                  <button type="submit" >Registrar</button>
+                </div>
+            </form>
+            
 		</article>
 
         <!--<div class="container">-->
@@ -123,9 +126,13 @@ class RegistroForm extends PolymerElement {
     }
 
     _handleRegister(event){
+        event.preventDefault();
         const name = this.shadowRoot.querySelector('#field_name').value;
         const email = this.shadowRoot.querySelector('#field_username').value;
         const password = this.shadowRoot.querySelector('#field_password').value;
+        this.shadowRoot.querySelector('#field_name').value = '';
+        this.shadowRoot.querySelector('#field_username').value = '';
+        this.shadowRoot.querySelector('#field_password').value = '';
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((result) => {

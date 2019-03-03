@@ -116,6 +116,7 @@ class HeaderComponent extends PolymerElement {
                         <li><a href="/#/searcher">Biblioteca</a></li>                               
                         <li><a href="#" on-click="__handleCloseSession">Cerrar sesión</a></li>                               
                     </template>      
+                    <li><a href="/#/news">Noticias</a></li>			
                     <li><a href="/#/contact">Contacto</a></li>			
                 </ul>	
             </nav><!-- / nav -->
