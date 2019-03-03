@@ -97,6 +97,7 @@ class SearcherPage extends PolymerElement {
         const references=firebase.database().ref('categories');
         references.on('value', (snapshot)=>{
             const cat=[];
+            cat.push({id:'', name:'Seleccionar'});
             for(const v in snapshot.val()){
                 cat.push(snapshot.val()[v]);
             }

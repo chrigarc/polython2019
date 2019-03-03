@@ -30,7 +30,7 @@ class ResourcesList extends PolymerElement {
             </thead>
             <tbody>
                 <template is="dom-repeat" items="[[resources]]" as="resource" id="trepeat">
-                    <template is="dom-if" if="[[isVisible(resource)]]">
+                    <template is="dom-if" if="[[isVisible(resource, filters)]]">
                         <tr>
                             <td>
                                 <a href="/#/content" on-click="handleContentSelect"  content-id$="[[resource.id]]" >[[resource.name]]</a> 
@@ -139,13 +139,20 @@ class ResourcesList extends PolymerElement {
         firebase.database().ref('resources/' + id).child('deleted').set(true);
     }
 
-    isVisible(resource){
+    isVisible(resource, filters){
         console.log('asads');
-        if(!this.filters.keyword || this.filters.keyword === ''){
-            return !resource.deleted;
+        let status = true;
+        if(!filters.keyword || filters.keyword === ''){
+            status = status && !resource.deleted;
+        }else{
+            status = status && !resource.deleted && resource.name.toString().startsWith(filters.keyword);
         }
 
-        return !resource.deleted && resource.name.toString().startsWith(this.filters.keyword);
+        if(filters.category && filters.category !== ''){
+            status = status && resource.category.toString().startsWith(filters.category);
+        }
+        return status;
+
     }
 
     handleValidate(event){
