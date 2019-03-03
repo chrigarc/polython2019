@@ -18,20 +18,53 @@ class ResourcesList extends PolymerElement {
       </style>
       <section>
         <ul>
-             <template is="dom-repeat" items="[[resources]]" as="lol" index-as="indexA" id="a">
-                <li><a href="content">[[lol]]</a> <a href="">Borrar</a> <span>vistas: 245</span></li>
+             <template is="dom-repeat" items="[[resources]]" as="resource">
+                <li><a href$="content?[[resource.id]]" on-click="handleContentSelect"  content-id$="[[resource.id]]" >[[resource.name]]</a> 
+                <a href="#">Borrar</a> <span>vistas: [[resource.views]]</span></li>
             </template>
         </ul>
       </section>
     `;
     }
+
     static get properties() {
         return {
             resources: {
                 type: Array,
-                value: ['Resource 1', 'Resource 2', 'Resource 3'],
+                value: [],
             },
         };
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        this.handleStart();
+    }
+
+    handleStart() {
+        const references = firebase.database().ref('resources');
+        references.on('value', (snapshot) => {
+            const my_array = [];
+            for (const v in snapshot.val()) {
+                my_array.push(snapshot.val()[v]);
+            }
+            this.set("resources", my_array);
+        });
+
+    }
+
+    handleContentSelect(event){
+        //: event.target.getAttribute('content-id')
+        const id = event.target.getAttribute('content-id');
+        const references = firebase.database().ref('resources/' + id);
+        references.on('value', (snapshot) => {
+            this.dispatchEvent(new CustomEvent('contentselected', {
+                bubbles: true,
+                composed: true,
+                detail: {content:snapshot.val()}
+            }));
+        });
+
     }
 }
 

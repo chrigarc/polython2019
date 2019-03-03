@@ -75,6 +75,7 @@ class HeaderComponent extends PolymerElement {
             </template>            
             <template is="dom-if" if="[[logged]]">
                 <a href="#" on-click="__handleCloseSession">Cerrar sesión</a>               
+                <span>[[user.name]]</span>
             </template>            
         </nav>
       </header>
@@ -95,6 +96,11 @@ class HeaderComponent extends PolymerElement {
     __handleCloseSession(event){
         firebase.auth().signOut().then(() => {
             // Sign-out successful.
+            this.dispatchEvent(new CustomEvent('notification', {
+                bubbles: true,
+                composed: true,
+                detail: {text: 'Adiós vaquero'}
+            }));
         }).catch((error) => {
             // An error happened.
         });

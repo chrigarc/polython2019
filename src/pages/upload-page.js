@@ -17,7 +17,7 @@ class UploadPage extends PolymerElement {
           display: block;
         }
       </style>
-      <upload-form></upload-form>
+      <upload-form user="[[user]]"></upload-form>
       
     `;
     }
@@ -27,6 +27,10 @@ class UploadPage extends PolymerElement {
                 type: String,
                 value: 'upload page',
             },
+            user:{
+                type: Object,
+                value: null
+            }
         };
     }
 }

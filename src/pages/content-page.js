@@ -2,6 +2,7 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '../components/content-component';
 import '../components/content-edit-component';
 
+
 /**
  * `p3-component`
  *
@@ -18,13 +19,14 @@ class ContentPage extends PolymerElement {
           display: block;
         }
       </style>
-      <content-component></content-component>
+            
+      <content-component content="[[content]]"></content-component>
       <content-edit-component></content-edit-component>
     `;
     }
     static get properties() {
         return {
-            prop1: {
+            content: {
                 type: String,
                 value: 'content page',
             },
