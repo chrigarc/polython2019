@@ -18,8 +18,8 @@ class SearcherPage extends PolymerElement {
           display: block;
         }
       </style>
-      <search-component></search-component>
-      <resources-list></resources-list>
+      <search-component categories="[[categorias]]"></search-component>
+      <resources-list categories="[[categorias]]" user="[[user]]"></resources-list>
     `;
     }
     static get properties() {
@@ -28,7 +28,31 @@ class SearcherPage extends PolymerElement {
                 type: String,
                 value: 'searcher page',
             },
+            user: {
+                type: Object,
+                value: null
+            },
+            categorias:{
+                type: Array,
+                value: [],
+            },
         };
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        this.handleStart();
+    }
+    handleStart(){
+        const references=firebase.database().ref('categories');
+        references.on('value', (snapshot)=>{
+            const cat=[];
+            for(const v in snapshot.val()){
+                cat.push(snapshot.val()[v]);
+            }
+            this.set("categorias",cat);
+        });
+
     }
 }
 

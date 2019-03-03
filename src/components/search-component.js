@@ -67,6 +67,11 @@ class SearchComponent extends PolymerElement {
       </style>
       <div class="topnav">
         <input type="text" placeholder="Search..">
+        <select id="inputcategoria">
+           <template is="dom-repeat" items="[[categories]]" as="categoria">
+            <option value="[[categoria.id]]">[[categoria.name]]</option>
+           </template>
+       </select>
       </div>
     `;
     }
@@ -76,6 +81,10 @@ class SearchComponent extends PolymerElement {
                 type: String,
                 value: 'login page',
             },
+            categories: {
+                type: Array,
+                value: []
+            }
         };
     }
 }
