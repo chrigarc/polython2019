@@ -16,14 +16,31 @@ class ResourcesList extends PolymerElement {
           display: block;
         }
       </style>
-      <section>
-        <ul>
-             <template is="dom-repeat" items="[[resources]]" as="resource">
-                <li><a href$="content?[[resource.id]]" on-click="handleContentSelect"  content-id$="[[resource.id]]" >[[resource.name]]</a> 
-                <a href="#">Borrar</a> <span>vistas: [[resource.views]]</span></li>
-            </template>
-        </ul>
-      </section>
+      
+      <template is="dom-if" if="[[user]]">
+        <section>
+            <ul>
+                 <template is="dom-repeat" items="[[resources]]" as="resource">
+                    <template is="dom-if" if="[[isVisible(resource)]]">
+                        <li><a href$="content?[[resource.id]]" on-click="handleContentSelect"  content-id$="[[resource.id]]" >[[resource.name]]</a> 
+                            <template is="dom-if" if="[[isAdmin()]]">
+                                <a href="#" on-click="handleDelete" content-id$="[[resource.id]]" >Borrar</a>
+                            
+                                <a href="#" on-click="handleValidate" content-id$="[[resource.id]]" >Validar</a>
+                            </template>                        
+                            <template is="dom-if" if="[[isStudent()]]">
+                                <a href="#" on-click="handleRate" content-id$="[[resource.id]]" content-rate$="[[resource.rate]]">Me gusta</a>
+                            </template>                       
+                            <span><strong>Valoraciones: </strong>[[resource.rate]]</span>
+                            <span><strong>Valido: </strong>[[renderValid(resource)]]</span>
+                            
+                        </li>
+                    </template>            
+                </template>
+            </ul>
+          </section>
+      </template>
+      
     `;
     }
 
@@ -33,6 +50,10 @@ class ResourcesList extends PolymerElement {
                 type: Array,
                 value: [],
             },
+            user: {
+                type: Object,
+                value: null
+            }
         };
     }
 
@@ -64,7 +85,38 @@ class ResourcesList extends PolymerElement {
                 detail: {content:snapshot.val()}
             }));
         });
+    }
 
+    handleDelete(event){
+        const id = event.target.getAttribute('content-id');
+        firebase.database().ref('resources/' + id).child('deleted').set(true);
+    }
+
+    isVisible(resource){
+        return !resource.deleted;
+    }
+
+    handleValidate(event){
+
+    }
+
+    handleRate(event){
+        const id = event.target.getAttribute('content-id');
+        const rate = Number(event.target.getAttribute('content-rate'));
+        firebase.database().ref('resources/' + id).child('rate').set(rate + 1);
+    }
+
+    isStudent(){
+        return this.user && this.user.rol === 'student';
+        // return true;
+    }
+
+    isAdmin(){
+        return this.user && this.user.rol === 'admin';
+    }
+
+    renderValid(resource){
+        return resource.validate? 'Si':'No';
     }
 }
 

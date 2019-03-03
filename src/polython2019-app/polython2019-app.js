@@ -40,8 +40,7 @@ class Polython2019App extends PolymerElement {
               attr-for-selected="view"
               fallback-selection="landing"
               role="main" 
-              on-notification="handleNotification"
-              on-loginsuccess="handleLoginSuccess"
+              on-notification="handleNotification"             
               on-contentselected="handleContent">
           <landing-page view="landing"></landing-page>
           <login-page view="login"></login-page>
@@ -49,7 +48,7 @@ class Polython2019App extends PolymerElement {
           <dashboard-page view="dashboard"></dashboard-page>
           <content-page view="content" content="[[content]]"></content-page>
           <upload-page view="upload" user="[[user]]"></upload-page>
-          <searcher-page view="searcher"></searcher-page>
+          <searcher-page view="searcher" user="[[user]]"></searcher-page>
       </iron-pages>
         
       <paper-toast id="toast" text="[[notification.text]]" opened></paper-toast>  
@@ -88,6 +87,14 @@ class Polython2019App extends PolymerElement {
   __oAuthMiddelware() {
     firebase.auth().onAuthStateChanged(user => {
       this.set('logged', user ? true : false);
+      if(user) {
+        const references = firebase.database().ref('users/' + user.uid);
+        references.on('value', (snapshot) => {
+          console.log(snapshot.val());
+          const data = Object.assign({}, user, {name: snapshot.val().username, rol: snapshot.val().rol});
+          this.set('user', data);
+        });
+      }
     });
   }
 
@@ -101,11 +108,6 @@ class Polython2019App extends PolymerElement {
     console.log(event.detail);
     this.set('content', event.detail.content);
     this.set('page', 'content') ;
-  }
-
-
-  handleLoginSuccess(event){
-    this.set('user', event.detail.user);
   }
 }
 

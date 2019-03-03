@@ -48,18 +48,6 @@ class LoginForm extends PolymerElement {
         const password = this.shadowRoot.querySelector('#inputpassword').value;
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((response) =>{
-                // console.log(response);
-                const references = firebase.database().ref('users/' + response.user.uid);
-                references.on('value', (snapshot) => {
-                    console.log(snapshot.val());
-                    const user = Object.assign({}, response.user, {name:snapshot.val().username});
-                    this.dispatchEvent(new CustomEvent('loginsuccess', {
-                        bubbles: true,
-                        composed: true,
-                        detail: {user: user}
-                    }));
-                });
-
                 this.dispatchEvent(new CustomEvent('notification', {
                     bubbles: true,
                     composed: true,

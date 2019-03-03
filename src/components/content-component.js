@@ -20,6 +20,9 @@ class ContentComponent extends PolymerElement {
       <marked-element markdown="[[content.content]]">
         <div slot="markdown-html"></div>     
       </marked-element>
+      
+      <p><strong>Valoraciones: </strong>[[content.rate]]</p>
+      
     `;
     }
     static get properties() {

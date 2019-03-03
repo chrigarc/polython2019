@@ -82,8 +82,9 @@ class UploadForm extends PolymerElement {
             views:0,
             rate:0,
             validate:false,
-            autor: user.uid,
-            id: newResurceKey
+            autor: this.user.uid,
+            id: newResurceKey,
+            deleted: false
         };
         const updates={};
         updates['/resources/' + newResurceKey] = resourceData;

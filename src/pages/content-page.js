@@ -21,7 +21,8 @@ class ContentPage extends PolymerElement {
       </style>
             
       <content-component content="[[content]]"></content-component>
-      <content-edit-component></content-edit-component>
+      <!--<content-edit-component></content-edit-component>-->
+      <a href="searcher">Regresar</a>
     `;
     }
     static get properties() {
