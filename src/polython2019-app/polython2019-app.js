@@ -14,6 +14,8 @@ import '../pages/upload-page';
 import '../pages/about-page';
 import '../pages/contact-page';
 import '../pages/news-page';
+import '../pages/news-upload';
+
 
 //components
 import '../components/header-component';
@@ -84,6 +86,12 @@ class Polython2019App extends PolymerElement {
             color: white;
         }
 
+@media screen and (max-width: 860px) {
+  #main-content{
+    margin-top: 200px;
+  }
+}
+
       </style>
       
       <app-location route="{{route}}" use-hash-as-path></app-location>
@@ -115,7 +123,8 @@ class Polython2019App extends PolymerElement {
             <searcher-page view="searcher" user="[[user]]"></searcher-page>
             <about-page view="about"></about-page>
             <contact-page view="contact"></contact-page>
-            <news-page view="news"></news-page>
+            <news-page view="news" user="[[user]]"></news-page>
+            <news-upload view="news-upload" ></news-upload>
         </iron-pages>
       </section>
       
@@ -154,6 +163,7 @@ class Polython2019App extends PolymerElement {
   connectedCallback() {
     super.connectedCallback();
     this.__oAuthMiddelware();
+    this.notifications();
   }
 
   __oAuthMiddelware() {
@@ -166,8 +176,20 @@ class Polython2019App extends PolymerElement {
           const data = Object.assign({}, user, {name: snapshot.val().username, rol: snapshot.val().rol});
           this.set('user', data);
         });
+      }else{
+          this.set('user', null);
       }
     });
+  }
+
+  notifications(){
+      const references = firebase.database().ref('notifications');
+      references.on('value', (snapshot) => {
+          if(snapshot.val()){
+              this.set('notification', {text: snapshot.val()})
+              this.$.toast.open();
+          }
+      });
   }
 
   handleNotification(event){

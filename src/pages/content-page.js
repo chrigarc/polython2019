@@ -22,6 +22,10 @@ class ContentPage extends PolymerElement {
             header, .content {
 		    padding: 40px;
 	    }
+	    
+	      img{
+            width: 100%;
+        }
       </style>
       
        <article>

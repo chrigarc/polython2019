@@ -54,6 +54,10 @@ class LoginForm extends PolymerElement {
         input[type=submit]:hover, button:hover {
           background-color: #45a049;
         }
+        
+        img{
+            width: 100%;
+        }
       </style>
 
     <article>

@@ -19,23 +19,27 @@ class AboutPage extends PolymerElement {
          header, .content {
 		    padding: 40px;
 	    }
+	    
+	      img{
+            width: 100%;
+        }
       </style>
      
        <article>
             <header>
                 <h2>SOBRE NOSOTROS</h2>
             </header>
-            <img src="http://placekitten.com/800/250" alt="Gatito" />
+            <img src$="https://picsum.photos/800/250?random&[[random()]]" alt="Gatito" />
             <div class="content">
                 <h3>VISIÒN</h3>
                 <p>Apoyar con material de consulta a la comunidad del centro de estudios científicos y tecnológicos “José María Morelos” de alta calidad, aprobada por docentes para uso de la comunidad estudiantil coadyuvando al rendimiento escolar .</p>
             </div>
-            <img src="http://placekitten.com/800/250" alt="Gatito" />
+            <img src$="https://picsum.photos/800/250?random&[[random()]]" alt="Gatito" />
             <div class="content">
                 <h3>MISIÒN</h3>
                 <p>Nacemos como “Chimaera” preocupados por los retos adicionales a la vida escolar, y la falta de medios de difusión de información que apoyen a la misma, así como mejorar el uso de la Tecnología actual haciendo rendir cada minuto de consulta, comenzando por la comunidad escolar del centro de estudios científicos y tecnológicos “José María Morelos”</p>
             </div>
-            <img src="http://placekitten.com/800/250" alt="Gatito" />
+            <img src$="https://picsum.photos/800/250?random&[[random()]]" alt="Gatito" />
             <div class="content">
                 <h3>VALORES</h3>
                 <p>
@@ -51,7 +55,7 @@ class AboutPage extends PolymerElement {
                     <li>Humildad: Es base de nuestra empresa. Compartimos un mismo principio y la voluntad de cumplirlo.</li>
                 </ul>
             </div>
-            <img src="http://placekitten.com/800/250" alt="Gatito" />
+            <img src$="https://picsum.photos/800/250?random&[[random()]]" alt="Gatito" />
             <div class="content">
                 <h3>OBJETIVOS </h3>
                 <ol>
@@ -68,6 +72,10 @@ class AboutPage extends PolymerElement {
     static get properties() {
         return {
         };
+    }
+
+    random(){
+        return Math.random();
     }
 }
 

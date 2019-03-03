@@ -90,7 +90,11 @@ class HeaderComponent extends PolymerElement {
             background: #0b76a6;
         }
         
-
+        @media screen and (max-width: 860px) {
+          nav>ul{
+            background: black;
+          }
+        }
         
         
       </style>

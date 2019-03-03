@@ -46,17 +46,21 @@ class SearcherPage extends PolymerElement {
         .button {
           background-color: #45a049;
         }
+        
+          img{
+            width: 100%;
+        }
       </style>
         <article>
             <header>
                 <h2>Biblioteca</h2>
             </header>
             <img src="http://placekitten.com/800/250" alt="Gatito" />
-            <div class="content">                
+            <div class="content" style="overflow: auto;">                
                 <search-component categories="[[categorias]]"></search-component>
             </div>
             
-            <div class="content">
+            <div class="content" style="overflow: auto;">
             <a class="button" href="/#/upload">Nuevo</a>
                 <resources-list categories="[[categorias]]" user="[[user]]"></resources-list>
             </div>            

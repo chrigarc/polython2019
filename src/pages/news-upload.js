@@ -8,7 +8,7 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
  * @polymer
  * @demo demo/index.html
  */
-class UploadForm extends PolymerElement {
+class NewsUpload extends PolymerElement {
     static get template() {
         return html`
       <style>
@@ -66,7 +66,7 @@ class UploadForm extends PolymerElement {
           background-color: #45a049;
         }
         
-        img{
+          img{
             width: 100%;
         }
       </style>
@@ -74,7 +74,7 @@ class UploadForm extends PolymerElement {
     
         <article>
             <header>
-                <h2>Nuevo recurso</h2>
+                <h2>Nueva noticia</h2>
             </header>
             <img src="https://picsum.photos/800/250?random" alt="Resource Image">        
             <form on-submit="handleSave">
@@ -87,13 +87,7 @@ class UploadForm extends PolymerElement {
                   <textarea id="inputcontenido" name="content" required></textarea><br>
                   <!--<p>Tipo</p>-->
                   <!--<input type="radio" name="type" value="file" checked> Archivo<br>-->
-                  <!--<input type="radio" name="type" value="text"> Texto<br>-->
-                  <label for="inputcategoria"><b>Categoría</b></label>
-                  <select id="inputcategoria" required>
-                   <template is="dom-repeat" items="[[categorias]]" as="categoria">
-                    <option value="[[categoria.id]]">[[categoria.name]]</option>
-                   </template>
-                   </select>
+                  <!--<input type="radio" name="type" value="text"> Texto<br>-->                                  
                    
                    <button type="submit">Agregar</button>      
                 </div>
@@ -108,66 +102,43 @@ class UploadForm extends PolymerElement {
                 type: String,
                 value: 'upload page',
             },
-            categorias:{
-                type: Array,
-                value: [],
-            },
             user: {
                 type: Object,
                 value: null
             }
         };
-        
+
     }
     connectedCallback() {
         super.connectedCallback();
-        this.handleStart();
     }
-    handleStart(){
-        const references=firebase.database().ref('categories');
-        references.on('value', (snapshot)=>{
-            const cat=[];
-            for(const v in snapshot.val()){
-                cat.push(snapshot.val()[v]);
-            }
-            this.set("categorias",cat);
-        });
 
-    }
     handleSave(event){
         event.preventDefault();
         const nombre = this.shadowRoot.querySelector('#inputnombre').value;
         const contenido = this.shadowRoot.querySelector('#inputcontenido').value;
-        const categoria = this.shadowRoot.querySelector('#inputcategoria').value;
-        const newResurceKey = firebase.database().ref('resources').push().key;
+        const newResurceKey = firebase.database().ref('news').push().key;
 
         const resourceData={
-            name:nombre,
+            title:nombre,
             content:contenido,
-            category:categoria,
             date: Date.now(),
-            type:"text",
-            views:0,
-            rate:0,
-            validate:false,
-            autor: this.user.uid,
             id: newResurceKey,
             deleted: false
         };
         const updates={};
-        updates['/resources/' + newResurceKey] = resourceData;
-        updates['/user-resources/' +this.user.uid+ '/' +newResurceKey] =resourceData;
-        updates['/notifications'] =  'Nuevo recurso disponible';
+        updates['/news/' + newResurceKey] = resourceData;
+        updates['/notifications'] =  'Nuevo noticia disponible';
         firebase.database().ref().update(updates).then(()=>{
             console.log("guarde bien");
             this.dispatchEvent(new CustomEvent('notification', {
                 bubbles: true,
                 composed: true,
-                detail: {text: 'Tu nuevo recurso ha sido guardado con éxito'}
+                detail: {text: 'Tu nueva noticia ha sido guardada con éxito'}
             }));
         }).catch(error=>{console.log(error)});
 
     }
 }
 
-window.customElements.define('upload-form', UploadForm);
+window.customElements.define('news-upload', NewsUpload);

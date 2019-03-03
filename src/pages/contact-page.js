@@ -55,13 +55,17 @@ class ContactPage extends PolymerElement {
         input[type=submit]:hover, button {
           background-color: #45a049;
         }
+        
+          img{
+            width: 100%;
+        }
       </style>
       
         <article>
             <header>
                 <h2>Registro</h2>
             </header>
-            <img src="http://placekitten.com/800/250" alt="Gatito" />
+            <img src="https://picsum.photos/800/250?random" alt="Gatito" />
             <form on-submit="handleSubmit">
                 <div class="content">
                   <label for="name"><b>Name</b></label>
