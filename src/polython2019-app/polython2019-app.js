@@ -35,11 +35,13 @@ class Polython2019App extends PolymerElement {
           padding: 0;
           font-family: Helvetica, Arial, sans-serif;
           color: #666;
-          background: #f2f2f2; 
+          /*background: #f2f2f2; */
           font-size: 1em;
-          line-height: 1.5em;
-          
+          line-height: 1.5em;                   
           padding-top: 80px;
+          background-image: url("/images/side.png");
+          background-repeat-x: repeat;
+          background-repeat-y: repeat;    
         }                     
         
         /************ 
